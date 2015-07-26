@@ -1,0 +1,14 @@
+language: python
+python:
+  - "2.7"
+
+install:
+ - make init
+
+# change from 'script: python setup.py test' to this
+script: 
+  coverage run --source portfolio -m unittest discover
+
+after_success:
+    coveralls
+
