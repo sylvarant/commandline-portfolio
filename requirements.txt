@@ -1,4 +1,5 @@
 coverage
+coveralls
 beautifulsoup4
 urllib2
 
