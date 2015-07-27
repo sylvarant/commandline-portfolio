@@ -18,4 +18,5 @@ init:
 
 clean:
 	find . -name '*.pyc' -delete
+	-rm -r htmlcov/
 

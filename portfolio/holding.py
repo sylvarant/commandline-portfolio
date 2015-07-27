@@ -14,7 +14,7 @@ class HoldingError(Exception):
 #======= A holding object computes the change ======
 class Holding(object):
     
-    def __init__(self,holding):
+    def __init__(self,holding,curr):
         if not holding.has_key('quote'):
             raise HoldingError("Quote missing")
         self.name = holding['quote']
