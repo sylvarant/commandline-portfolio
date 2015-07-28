@@ -8,9 +8,10 @@ from bs4 import BeautifulSoup
 #======= globals ========
 bl_url = 'http://www.bloomberg.com/quote/'
 
+
 #== Class =============================
 #   * Quote
-#   -- A member of Records
+#   -- A collection of finance data
 #======================================
 class Quote(object):
 
@@ -60,7 +61,7 @@ def get_quote(quote):
   basic_quote = BeautifulSoup(str(soup.find("div",{"class" : "basic-quote"})),"lxml")
   direction = get_direction(basic_quote)
   name = basic_quote.find("h1", {"class" : "name" }).string.strip()
-  price = basic_quote.find("div", { "class" : "price" }).string
+  price = float(basic_quote.find("div", { "class" : "price" }).string)
   currency = basic_quote.find("div",{"class" : "currency" }).string
   change_str = basic_quote.find("div",{"class" : "change-container"}).contents[1].string
   change = float(change_str.strip()) * direction
