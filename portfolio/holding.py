@@ -29,21 +29,21 @@ class Holding(object):
     quote = get_quote(self.name)
     self.last_price = quote.price
     self.currency = quote.currency
-    self.day_change = quote.change
+    self.day_gain = quote.change
     self.lots = None
-    self.change = 0
+    self.gain = 0
     if holding.has_key('lots'):
       self.lots = holding['lots']
       for lot in self.lots:
         if not (lot.has_key("Amount") and lot.has_key("Value")):
           raise HoldingError("Missing attribute in lots")
-        self.change += float(lot["Amount"]) * (self.last_price - float(lot["Value"])) 
+        self.gain += float(lot["Amount"]) * (self.last_price - float(lot["Value"])) 
 
 
   def __str__(self):
     today = (self.name + " :: " + str(self.last_price) + " (" + self.currency + ")"
-    + " :: " + str(self.day_change))
+    + " :: " + str(self.day_gain))
     if self.lots is not None:
-      today = today + " :: " + str(self.change) + " (" + self.currency + ")"
+      today = today + " :: " + str(self.gain) + " (" + self.currency + ")"
     return today
 

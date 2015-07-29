@@ -3,7 +3,7 @@ from __future__ import absolute_import
 import getopt
 import sys
 
-from portfolio.portfolio import Porfolio
+from portfolio.portfolio import Portfolio
 
 
 #======= usage ========
@@ -30,7 +30,7 @@ def main(argv):
     elif opt == '-s':
       config = arg
 
-    p = Porfolio(open(config).read())
+    p = Portfolio(open(config).read())
     print p
 
 

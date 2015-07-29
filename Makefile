@@ -8,7 +8,7 @@ VENV=/tmp/venv
 all: check test 
 
 test:
-	python -m unittest discover .
+	coverage run --source portfolio -m unittest discover
 
 check:
 	find . -name \*.py | grep -v "^test_" | xargs pylint --errors-only --reports=n
@@ -20,3 +20,4 @@ clean:
 	find . -name '*.pyc' -delete
 	-rm -r htmlcov/
 
+.PHONY: all test check init  clean

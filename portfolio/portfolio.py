@@ -14,8 +14,8 @@ class IncorrectConfig(Exception):
   def __init__(self,note):
     self.note = note
 
-    def __str__(self):
-      return "Failed to parse config: " + self.note
+  def __str__(self):
+    return "Failed to parse config: " + self.note
 
 
 #==== convert to new currency =====
@@ -28,11 +28,11 @@ def to_curr(amount,old,new):
 
 
 #== Class =============================
-#   * Porfolio
+#   * Portfolio
 #   -- A collection of holdings 
 #   -- That provides a certain earning
 #======================================
-class Porfolio(object):
+class Portfolio(object):
 
   def __init__(self,config):
     decode = None 
@@ -51,7 +51,7 @@ class Porfolio(object):
     self.holdings = []
     for holding in decode['holdings']:
       self.holdings.append(Holding(holding))
-    gains = map(lambda x: to_curr(x.change,x.currency,self.currency),self.holdings)
+    gains = map(lambda x: to_curr(x.gain,x.currency,self.currency),self.holdings)
     self.gain = reduce((lambda x,y: x + y),gains)
 
   def earnings_statement(self):
