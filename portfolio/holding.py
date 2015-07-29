@@ -32,12 +32,14 @@ class Holding(object):
     self.day_gain = quote.change
     self.lots = None
     self.gain = 0
+    self.value = 0
     if holding.has_key('lots'):
       self.lots = holding['lots']
       for lot in self.lots:
         if not (lot.has_key("Amount") and lot.has_key("Value")):
           raise HoldingError("Missing attribute in lots")
         self.gain += float(lot["Amount"]) * (self.last_price - float(lot["Value"])) 
+        self.value += float(lot["Amount"]) * self.last_price
 
 
   def __str__(self):

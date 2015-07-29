@@ -52,10 +52,12 @@ class Portfolio(object):
     for holding in decode['holdings']:
       self.holdings.append(Holding(holding))
     gains = map(lambda x: to_curr(x.gain,x.currency,self.currency),self.holdings)
+    values = map(lambda x: to_curr(x.value,x.currency,self.currency),self.holdings)
     self.gain = reduce((lambda x,y: x + y),gains)
+    self.value = reduce((lambda x,y: x + y),values)
 
   def earnings_statement(self):
-    return ("Total earnings: " + str(self.gain) + " (" + self.currency + ')')
+    return ("Total value "+ str(self.value) +" of which is earnings: " + str(self.gain) + " (" + self.currency + ')')
 
   def __str__(self):
     str_list = []
