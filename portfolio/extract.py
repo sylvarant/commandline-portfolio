@@ -15,11 +15,11 @@ bl_url = 'http://www.bloomberg.com/quote/'
 #======================================
 class Quote(object):
 
-  def __init__(self,name,price,currency,change):
+  def __init__(self,name,price,currency,gain):
     self.name = name
     self.price = price
     self.currency = currency
-    self.change = change
+    self.gain = gain
 
 
 #======= determine symbol direction ========
@@ -64,7 +64,7 @@ def get_quote(quote):
   price = float(basic_quote.find("div", { "class" : "price" }).string)
   currency = basic_quote.find("div",{"class" : "currency" }).string
   change_str = basic_quote.find("div",{"class" : "change-container"}).contents[1].string
-  change = float(change_str.strip()) * direction
-  return Quote(name,price,currency,change)
+  gain = float(change_str.strip()) * direction
+  return Quote(name,price,currency,gain)
 
 

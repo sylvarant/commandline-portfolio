@@ -9,6 +9,7 @@ class TestHolding(unittest.TestCase):
     self.assertRaises(HoldingError,Holding,{"quote" : "BAC:US", "lots" : [ { } ] })
     hold = Holding({"quote" : "BAC:US", "lots" : [ {"Amount" : 10, "Value" : 0 } ] })
     self.assertTrue(hold.gain > 0)
+    self.assertFalse((str(hold) is None))
 
 if __name__ == '__main__':
   unittest.main()

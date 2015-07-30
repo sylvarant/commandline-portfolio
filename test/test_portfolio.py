@@ -16,6 +16,7 @@ class TestPortfolio(unittest.TestCase):
     self.assertRaises(IncorrectConfig,Portfolio,'{"currency" : "EUR"}') 
     port = Portfolio('{"currency" : "EUR", "holdings" : [ { "quote" : "AMZN:US" } ] }')
     self.assertTrue(port.gain == 0)
+    self.assertFalse(str(port) is None)
 
 if __name__ == '__main__':
   unittest.main()

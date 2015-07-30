@@ -1,7 +1,7 @@
 from __future__ import absolute_import
 
 from portfolio.extract import get_quote
-
+from portfolio.interface import str_color
 
 #======================================
 # Exceptions
@@ -29,7 +29,7 @@ class Holding(object):
     quote = get_quote(self.name)
     self.last_price = quote.price
     self.currency = quote.currency
-    self.day_gain = quote.change
+    self.day_gain = quote.gain
     self.lots = None
     self.gain = 0
     self.value = 0
@@ -44,8 +44,8 @@ class Holding(object):
 
   def __str__(self):
     today = (self.name + " :: " + str(self.last_price) + " (" + self.currency + ")"
-    + " :: " + str(self.day_gain))
+    + " :: " + str_color(self.day_gain))
     if self.lots is not None:
-      today = today + " :: " + str(self.gain) + " (" + self.currency + ")"
+      today = today + " :: " + str_color(self.gain) + " (" + self.currency + ")"
     return today
 

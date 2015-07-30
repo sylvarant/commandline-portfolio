@@ -4,6 +4,7 @@ import json
 import re
 from portfolio.extract import is_currency, get_quote
 from portfolio.holding import Holding
+from portfolio.interface import str_color
 
 #======================================
 # Exceptions
@@ -57,7 +58,7 @@ class Portfolio(object):
     self.value = reduce((lambda x,y: x + y),values)
 
   def earnings_statement(self):
-    return ("Total value "+ str(self.value) +" of which is earnings: " + str(self.gain) + " (" + self.currency + ')')
+    return ("Total value "+ str(self.value) +" of which is earnings: " + str_color(self.gain) + " (" + self.currency + ')')
 
   def __str__(self):
     str_list = []
