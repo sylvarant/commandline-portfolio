@@ -2,11 +2,26 @@ from blessings import Terminal
 
 t = Terminal()
 
-#======= colorcode gain ========
-def str_color(number):
+
+#======= colorcode ========
+
+def up(string):
+  return t.bold(t.green(string)) 
+
+def down(string):
+  return t.bold(t.red(string)) 
+  
+def num_color(number):
   if number < 0:
-    return t.bold(t.red(str(number))) 
+    return down(str(number)) 
   else:
-    return t.bold(t.green(str(number))) 
+    return up(str(number)) 
+
+def str_color(string,number):
+  if number < 0:
+    return down(string) 
+  else:
+    return up(string)
 
 
+  

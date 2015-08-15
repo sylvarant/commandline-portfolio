@@ -1,4 +1,5 @@
 from __future__ import absolute_import
+import re
 
 from portfolio.extract import get_quote
 from portfolio.interface import str_color
@@ -49,3 +50,29 @@ class Holding(object):
       today = today + " :: " + str_color(self.gain) + " (" + self.currency + ")"
     return today
 
+  # row to the interface
+  def row(self,form):
+    def is_float(form):
+      match = re.search('f$',form)
+      return match 
+    # create alignment
+    def align_fl(form,color):
+      sign = (1 if (re.search('^\%\+',form)) else 0)
+      match = re.search('([0-9]+)\.([0-9]+)f$',form)
+      ansii = (len('\x1b[1m\x1b[32m') + len('\x1b(B\x1b[m\x1b(B\x1b[m')) if color else 0
+      if match:
+        return ("%" + str(int(match.group(1)) + int(match.group(2)) + ansii + sign + 1) + "s") 
+      else :
+        return form
+
+    # process format
+    nform = map((lambda x: align_fl(x,False)),form[:2]) + map((lambda x: align_fl(x,False)),form[2:])
+    finalform = " ".join(nform);
+
+    # process arguments
+    args = [("("+self.currency+")"),self.day_gain]
+    if self.lots is not None:
+      args.append(self.gain)
+    args = [(str_color((x % y),y) if is_float(x) else y) for x,y in zip(form[2:],args)]
+    return finalform % tuple([self.name,self.last_price] + args)
+     

@@ -30,7 +30,6 @@ def main(argv):
     elif opt == '-s':
       config = arg
 
-    p = Portfolio(open(config).read())
-    print p
-
+  p = Portfolio(open(config).read())
+  p.print_table()
 

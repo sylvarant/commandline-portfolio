@@ -1,4 +1,3 @@
-
 from lxml import html
 import urllib2
 import re
