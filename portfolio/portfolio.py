@@ -67,7 +67,7 @@ class Portfolio(object):
     str_list = []
     for holding in self.holdings:
       str_list.append(str(holding))
-    str_list.append(self.earnings_statement())
+    str_list.append(self.earnings_statement(False))
     out_str = "\n".join(str_list)
     return out_str
 
