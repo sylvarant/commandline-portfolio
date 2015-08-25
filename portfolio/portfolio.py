@@ -2,6 +2,8 @@ from __future__ import absolute_import
 
 import json
 import re
+import multiprocessing
+import traceback
 from portfolio.extract import is_currency, get_quote
 from portfolio.holding import Holding
 from portfolio.interface import str_color, num_color
@@ -26,6 +28,14 @@ def to_curr(amount,old,new):
   quote = get_quote(old + new + ':CUR')
   return (quote.price * float(amount))
       
+#pickle error's with lambda's when using multiprocessing
+def make_holding(x):
+  try:
+    return Holding(x)
+  except Exception:
+    print("Exception in worker:")
+    traceback.print_exc()
+    raise
 
 
 #== Class =============================
@@ -49,9 +59,8 @@ class Portfolio(object):
       raise IncorrectConfig('No holdings defined') 
     m = re.match("(\w+)(:.*|$)", decode['currency'])
     self.currency = m.groups()[0]
-    self.holdings = []
-    for holding in decode['holdings']:
-      self.holdings.append(Holding(holding))
+    pool = multiprocessing.Pool(3)
+    self.holdings = pool.map(make_holding,decode['holdings'])
     gains = map(lambda x: to_curr(x.gain,x.currency,self.currency),self.holdings)
     values = map(lambda x: to_curr(x.value,x.currency,self.currency),self.holdings)
     self.gain = reduce((lambda x,y: x + y),gains)

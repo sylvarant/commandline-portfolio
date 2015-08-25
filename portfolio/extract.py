@@ -6,7 +6,9 @@ from bs4 import BeautifulSoup
 
 #======= globals ========
 bl_url = 'http://www.bloomberg.com/quote/'
-
+headers = { 'User-Agent' : 
+#  'Mozilla/5.0 (iPhone; U; CPU iPhone OS 4_2_1 like Mac OS X; en-us) AppleWebKit/533.17.9 (KHTML, like Gecko) Version/5.0.2 Mobile/8G4 Safari/6533.18.5'}
+  'Mozilla/5.0 (Linux; Android 4.0.4; Galaxy Nexus Build/IMM76B) AppleWebKit/535.19 (KHTML, like Gecko) Chrome/18.0.1025.133 Mobile Safari/535.19' }
 
 #== Class =============================
 #   * Quote
@@ -34,7 +36,8 @@ def get_direction(soup):
 #======= Check that bloomberg has the quote ========
 def is_quote(quote):
   url = bl_url + quote 
-  page = urllib2.urlopen(url)
+  req = urllib2.Request(url, None, headers)
+  page = urllib2.urlopen(req)
   soup = BeautifulSoup(page.read(),"lxml")
   res = soup.find("div",{"class" : "basic-quote"})
   if res is None:
@@ -54,7 +57,8 @@ def is_currency(curr):
 #======= get_quote ========
 def get_quote(quote):
   url = bl_url + quote 
-  page = urllib2.urlopen(url)
+  req = urllib2.Request(url, None, headers)
+  page = urllib2.urlopen(req)
   soup = BeautifulSoup(page.read(),"lxml")
   #soup = BeautifulSoup(open('/Users/adriaan/Downloads/page.html'),"lxml")
   basic_quote = BeautifulSoup(str(soup.find("div",{"class" : "basic-quote"})),"lxml")
