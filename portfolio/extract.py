@@ -37,6 +37,7 @@ def get_direction(soup):
 def is_quote(quote):
   url = bl_url + quote 
   req = urllib2.Request(url, None, headers)
+  req.headers['Range'] = 'bytes=%s-%s' % (0, 1024) # TODO does not work
   page = urllib2.urlopen(req)
   soup = BeautifulSoup(page.read(),"lxml")
   res = soup.find("div",{"class" : "basic-quote"})

@@ -66,7 +66,7 @@ class Holding(object):
         return form
 
     # process format
-    nform = map((lambda x: align_fl(x,False)),form[:2]) + map((lambda x: align_fl(x,False)),form[2:])
+    nform = map((lambda x: align_fl(x,False)),form[:2]) + map((lambda x: align_fl(x,True)),form[2:])
     finalform = " ".join(nform);
 
     # process arguments
