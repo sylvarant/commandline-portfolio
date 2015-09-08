@@ -68,9 +68,11 @@ class Portfolio(object):
 
   def earnings_statement(self,color):
     value = ("%.2f" % self.value) if not color else str_color(("%.2f" % self.value),self.gain)
+    cost =  ("%.2f" % (self.value - self.gain))
     gain  = ("%+.2f" % self.gain) if not color else str_color(("%+.2f" % self.gain),self.gain)
-    return ("Total value: "+ value + " (" + self.currency + ')' 
-      +" -- Total Profit: " + gain + " (" + self.currency + ')') 
+    return ("Total  value: "+ value + " (" + self.currency + ')\n' 
+    "Total   cost: "+ cost + " (" + self.currency + ')\n' 
+      +"Total Profit: " + gain + " (" + self.currency + ')') 
 
   def __str__(self):
     str_list = []
