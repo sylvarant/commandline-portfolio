@@ -29,7 +29,12 @@ def main(argv):
       usage()
     elif opt == '-s':
       config = arg
+  
+  try: 
+    p = Portfolio(open(config).read())
+    p.print_table()
+  except IOError:
+    print 'portfolio file not found!'
+    sys.exit(1)
 
-  p = Portfolio(open(config).read())
-  p.print_table()
 
